@@ -1,0 +1,3 @@
+---
+- name: STAGE | Setup "Monit"
+  import_tasks: setup-monit.yml

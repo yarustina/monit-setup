@@ -1,0 +1,5 @@
+---
+action: timeout
+check_port: 80
+monit_port: 2812
+daemon_timeout: 30

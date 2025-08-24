@@ -1,0 +1,11 @@
+check process nginx with pidfile /run/nginx.pid
+  start program = "/bin/systemctl start nginx"
+  stop program  = "/bin/systemctl stop nginx"
+  if failed port {{ check_port }} protocol http then restart
+  if 5 restarts within 5 cycles then {{ action }}
+  group webserver
+  check host nginx_http with address 127.0.0.1
+    if failed port {{ check_port }} protocol http
+      request /
+      with timeout 10 seconds
+      then restart
