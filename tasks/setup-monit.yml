@@ -4,18 +4,22 @@
     name: monit
     state: present
     update_cache: true
-  tags: monit
 
 - name: Copy monit-config
   template:
     src: templates/monit-config.j2
     dest: /etc/monit/monitrc
   notify: Reload Monit
-  tags: monit
 
 - name: Copy monit-nginx-config
   template:
     src: templates/monit-nginx-config.j2
     dest: /etc/monit/conf-available/nginx
   notify: Reload Monit
-  tags: monit
+
+- name: Create a symlinc
+  file:
+    src: /etc/monit/conf-available/nginx
+    dest: /etc/monit/conf-enabled/nginx
+    state: link
+  notify: Reload Monit
